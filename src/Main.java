@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 public class Main {
@@ -14,7 +16,17 @@ public class Main {
             try{
                 String cmd = "/bin/sh -c pwd ";
                 process = Runtime.getRuntime()
-                        .exec("/bin/bash -c  x-terminal-emulator > pwd");
+                        .exec("/bin/bash -c  pwd");
+                BufferedReader stdInput = new BufferedReader(new
+                        InputStreamReader(process.getInputStream()));
+
+                BufferedReader stdError = new BufferedReader(new
+                        InputStreamReader(process.getErrorStream()));
+                System.out.println("Here is the standard output of the command:\n");
+                String s = null;
+                while ((s = stdInput.readLine()) != null) {
+                    System.out.println(s);
+                }
             }catch (IOException e){
 
             }
